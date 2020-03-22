@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg" style="
+background: #127abe !important;
+">
+    <a class="navbar-brand" href="#" style="color: white;">Covid-19 Monitor</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid pt-4" style="box-sizing: border-box; background: #f3f5f7;">
+    <!-- <h3>
+        Covid-19 Monitoring Dashboard
+        <p style="font-size: 12px;">
+            created by Wildhan Triherlian Saputrawan
+        </p>
+    </h3> -->
+    <div class="row">
+        <div class="col-sm-12"></div>
+        <div class="col-sm-3">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #a2a2a2 !important;" (click)="klik()">
+                <h1>
+                    {{ confirmed }}
+                </h1>
+                <h6>
+                    Total
+                </h6>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #f8c702 !important;">
+                <h1>
+                    {{ active }}
+                </h1>
+                <h6>
+                    Aktif
+                </h6>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #7ace7a !important;">
+                <h1>
+                    {{ recovered }}
+                </h1>
+                <h6>
+                    Sembuh
+                </h6>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="background:#e8776b !important;color: white ;">
+
+                <h1>
+                    {{ death }}
+                </h1>
+                <h6>
+                    Meninggal
+                </h6>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded" style="min-height: 600px;">
+                <div class="row">
+                    <div class="col-sm-6 mb-4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            </div>
+                        </div>
+                        <div class="bd-highlight scrollbar" style="height: 500px;overflow: auto;">
+                            <table class="table table-condensed table-sm">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Country</th>
+                                    <th>Kasus aktif</th>
+                                    <th>Sembuh</th>
+                                    <th>Meninggal</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr *ngFor="let c of countries; let i = index" style="cursor: pointer;" [ngClass]="{ 'selected-tr':selectedCountry != null && c.id == selectedCountry.id }" (click)="clickCountry(c)">
+                                    <td>{{i+1}}</td>
+                                    <td>{{ c.country_region }}</td>
+                                    <td>{{ c.active }}</td>
+                                    <td>{{ c.recovered }}</td>
+                                    <td>{{ c.death }}</td>
+                                    <td>{{ c.confirmed }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>
+                            {{ selectedCountry != null ? selectedCountry.country_region : "" }}
+                        </h3>
+                        <div style="width: 100%; height: 50%;">
+                            <Div id="map" style="height:100%;"></Div>
+                        </div>
+                        <div style="width: 100%; height: 50%; min-height: 250px;">
+                            <Div class="row">
+                                <Div class="col-sm-6">
+                                    <canvas id="myChart" style="width: 100%; height: 250px;"></canvas>
+                                </Div>
+                                <Div class="col-sm-6">
+                                    <canvas id="myChart2" style="width: 100%; height: 250px;"></canvas>
+                                </Div>
+                            </Div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="footer">
+    Made By <a href="https://www.linkedin.com/in/wildhan-triherlian-s-25634b145/" target="_blank">Wildhan Triherlian S</a><br> Data source By <a href="https://covid19api.com/" target="_blank">covid19api.com</a> and <a href="https://gis-kawalcovid19.hub.arcgis.com/"
+        target="_blank">kawalcovid19</a>
+</div>

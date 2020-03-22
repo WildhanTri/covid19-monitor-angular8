@@ -1,0 +1,22 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans&display=swap';
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    ;
+}
+
+.summary-box {
+    text-align: right;
+}
+
+.selected-tr {
+    transition: 0.2s;
+    background: #127abe;
+    color: white
+}
+
+.footer {
+    background: #25282b;
+    text-align: center;
+    color: white;
+    padding: 10px 20px;
+}
