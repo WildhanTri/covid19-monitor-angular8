@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'data-visualization-with-angular'`, () => {
+  it(`should have as title 'covid19-monitor-angular8'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('data-visualization-with-angular');
+    expect(app.title).toEqual('covid19-monitor-angular8');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('data-visualization-with-angular app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('covid19-monitor-angular8 app is running!');
   });
 });
