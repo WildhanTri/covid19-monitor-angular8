@@ -20,9 +20,10 @@ background: #127abe !important;
     <div class="row">
         <div class="col-sm-12"></div>
         <div class="col-sm-3">
-            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #a2a2a2 !important;">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box"
+                style="color: white;background: #a2a2a2 !important;">
                 <h1>
-                    {{ confirmed }}
+                    {{ confirmed | number:'1.0-0' }}
                 </h1>
                 <h6>
                     Total
@@ -30,9 +31,10 @@ background: #127abe !important;
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #f8c702 !important;">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box"
+                style="color: white;background: #f8c702 !important;">
                 <h1>
-                    {{ active }}
+                    {{ active | number:'1.0-0' }}
                 </h1>
                 <h6>
                     Aktif
@@ -40,9 +42,10 @@ background: #127abe !important;
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="color: white;background: #7ace7a !important;">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box"
+                style="color: white;background: #7ace7a !important;">
                 <h1>
-                    {{ recovered }}
+                    {{ recovered | number:'1.0-0' }}
                 </h1>
                 <h6>
                     Sembuh
@@ -50,10 +53,11 @@ background: #127abe !important;
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box" style="background:#e8776b !important;color: white ;">
+            <div class="shadow-sm p-3 mb-2 bg-white rounded summary-box"
+                style="background:#e8776b !important;color: white ;">
 
                 <h1>
-                    {{ death }}
+                    {{ death | number:'1.0-0' }}
                 </h1>
                 <h6>
                     Meninggal
@@ -66,6 +70,10 @@ background: #127abe !important;
                     <div class="col-sm-6 mb-4">
                         <div class="row">
                             <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input [(ngModel)]="countriesSearchInput" type="text" class="form-control p-2"
+                                        name="contries-search-input" id="contries-search-input" placeholder="Cari nama negara">
+                                </div>
                             </div>
                         </div>
                         <div class="bd-highlight scrollbar" style="height: 500px;overflow: auto;">
@@ -78,13 +86,15 @@ background: #127abe !important;
                                     <th>Meninggal</th>
                                     <th>Total</th>
                                 </tr>
-                                <tr *ngFor="let c of countries; let i = index" style="cursor: pointer;" [ngClass]="{ 'selected-tr':selectedCountry != null && c.id == selectedCountry.id }" (click)="clickCountry(c)">
+                                <tr *ngFor="let c of getCountries(); let i = index" style="cursor: pointer;"
+                                    [ngClass]="{ 'selected-tr':selectedCountry != null && c.id == selectedCountry.id }"
+                                    (click)="clickCountry(c)">
                                     <td>{{i+1}}</td>
-                                    <td>{{ c.country_region }}</td>
-                                    <td>{{ c.active }}</td>
-                                    <td>{{ c.recovered }}</td>
-                                    <td>{{ c.death }}</td>
-                                    <td>{{ c.confirmed }}</td>
+                                    <td>{{ c.country_region == null ? '-' : c.country_region }}</td>
+                                    <td>{{ c.active == null ? '-' : (c.active | number:'1.0-0') }}</td>
+                                    <td>{{ c.recovered == null ? '-' : (c.recovered | number:'1.0-0') }}</td>
+                                    <td>{{ c.death == null ? '-' : (c.death | number:'1.0-0') }}</td>
+                                    <td>{{ c.confirmed == null ? '-' : (c.confirmed | number:'1.0-0') }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -114,6 +124,7 @@ background: #127abe !important;
 
 </div>
 <div class="footer">
-    Made By <a href="https://www.linkedin.com/in/wildhan-triherlian-s-25634b145/" target="_blank">Wildhan Triherlian S</a><br> Data source By <a href="https://covid19api.com/" target="_blank">covid19api.com</a> and <a href="https://gis-kawalcovid19.hub.arcgis.com/"
-        target="_blank">kawalcovid19</a>
+    Made By <a href="https://www.linkedin.com/in/wildhan-triherlian-s-25634b145/" target="_blank">Wildhan Triherlian
+        S</a><br> Data source By <a href="https://covid19api.com/" target="_blank">covid19api.com</a> and <a
+        href="https://gis-kawalcovid19.hub.arcgis.com/" target="_blank">kawalcovid19</a>
 </div>

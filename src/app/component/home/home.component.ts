@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
 
   cases = []
 
+  countriesSearchInput = ""
+
   constructor(private cdr: ChangeDetectorRef, private service: CovidService) { }
 
   ngOnInit() {
@@ -122,10 +124,13 @@ export class HomeComponent implements OnInit {
 
 
           try {
-            var marker = L.marker(new L.LatLng(country.lat, country.lng))
+            var century21icon = L.icon({
+              iconUrl: 'assets/markermap.png',
+              iconSize: [30, 30]
+            });
+            var marker = L.marker(new L.LatLng(country.lat, country.lng), { icon: century21icon })
             marker.bindPopup("<b>" + country.country_region + "</b>")
             marker.on('click', (e) => {
-
               var countryMarker: Country = new Country();
               countryMarker.id = d["attributes"].OBJECTID;
               countryMarker.country_region = d["attributes"].Country_Region;
@@ -143,7 +148,7 @@ export class HomeComponent implements OnInit {
             marker.addTo(this.map)
 
 
-            L.circle([country.lat, country.lng], { radius: country.confirmed * 15 }).addTo(this.map);
+            // L.circle([country.lat, country.lng], { radius: Math.round(country.confirmed * 0.8) }).addTo(this.map);
           } catch (e) {
             console.error(e)
           }
@@ -169,6 +174,10 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  getCountries(){
+    return this.countriesSearchInput == "" ? this.countries : this.countries.filter(c => c.country_region.toLowerCase().includes(this.countriesSearchInput.toLowerCase()))
+  }
+
   changeAffectedHeader(e) {
     switch (this.affectedHeader) {
       case "Confirmed":
@@ -184,7 +193,6 @@ export class HomeComponent implements OnInit {
         this.countries.sort((a, b) => b.death - a.death)
         break;
     }
-    console.log(this.cases)
   }
 
   clickCountry(country: Country) {
@@ -206,7 +214,6 @@ export class HomeComponent implements OnInit {
 
     this.service.getHistoryTracking(countryName, "confirmed").subscribe(
       data => {
-        console.log(data)
         var historyTracks: HistoryTrack[] = []
         var labelsHistory = []
         var casesHistory = []
@@ -218,10 +225,8 @@ export class HomeComponent implements OnInit {
           historyTrack.cases = d.Cases
           historyTrack.country = d.Country
           historyTrack.date = new Date(d.Date)
-          // console.log(historyTrack.date.get)
-          // console.log(historyTrack.date.getFullYear()+"-"+historyTrack.date.getMonth()+"-"+historyTrack.date.getDate())
           historyTracks.push(historyTrack)
-          labelsHistory.push(historyTrack.date.getFullYear()+"-"+(historyTrack.date.getMonth()+1)+"-"+historyTrack.date.getDate())
+          labelsHistory.push(historyTrack.date.getFullYear() + "-" + (historyTrack.date.getMonth() + 1) + "-" + historyTrack.date.getDate())
           casesHistory.push(historyTrack.cases)
         }
 
